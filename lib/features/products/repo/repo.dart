@@ -23,7 +23,7 @@ class ProductRepo {
 
       return right(products);
     } on DioException catch (e) {
-      if (e.response?.statusCode == 400) {
+      if (e.response?.statusCode == 400 || e.response?.statusCode == 404) {
         return left(Failure(errorMessage: e.response!.data['message']));
       }
       return left(Failure());

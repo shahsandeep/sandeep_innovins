@@ -54,6 +54,40 @@ class _ProductsPageState extends State<ProductsPage> {
               }
             },
             builder: (context, state) {
+              if (state is ProductFailure &&
+                  state.failure.errorMessage ==
+                      'No products found in the database') {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'No Products Found! \nPlease add some Products.',
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    CustomGradientButton(
+                      buttonText: 'Add Product',
+                      onPressed: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.of(context).viewInsets,
+                              child: BlocProvider<ProductBloc>.value(
+                                value: productBloc,
+                                child: const CrudWidget(
+                                  title: 'Add Product',
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                );
+              }
               return Column(
                 children: [
                   if (state is ProductLoading) ...[
@@ -218,7 +252,7 @@ class _ProductsPageState extends State<ProductsPage> {
                             .headlineSmall
                             ?.copyWith(color: AppPallete.errorColor),
                       ),
-                    )
+                    ),
                   ]
                 ],
               );
