@@ -142,13 +142,6 @@ class _CrudWidgetState extends State<CrudWidget> {
                                   ),
                                 ));
                               }
-                              // context.read<AuthBloc>().add(
-                              //       SignUpWithEmailPasswordEvent(
-                              //           name: nameController.text.trim(),
-                              //           email: emailController.text.trim(),
-                              //           password: passwordController.text.trim(),
-                              //           mobile: numberController.text.trim()),
-                              //     );
                             }
                           },
                           buttonText: widget.title,
